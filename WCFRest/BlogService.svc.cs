@@ -11,6 +11,18 @@ namespace WCFRest
     // ПРИМЕЧАНИЕ. Чтобы запустить клиент проверки WCF для тестирования службы, выберите элементы BlogService.svc или BlogService.svc.cs в обозревателе решений и начните отладку.
     public class BlogService : IBlogService
     {
+        public int AddPost(string postHeader, string postText, string postTypeId)
+        {
+            var datacontext = new DataClassesDataContext();
+            var p = new Post();
+            p.PostHeader = postHeader;
+            p.PostText = postText;
+            p.PostTypeID = Int16.Parse(postTypeId);
+            datacontext.Post.InsertOnSubmit(p);
+            datacontext.SubmitChanges();
+            return p.PostID;
+        }
+
         public int AddPostType(string postTypeName)
         {
             var datacontext = new DataClassesDataContext();
@@ -22,6 +34,15 @@ namespace WCFRest
 
         }
 
+        public int DeletePost(string postId)
+        {
+            var datacontext = new DataClassesDataContext();
+            var p = datacontext.Post.FirstOrDefault(x => x.PostTypeID.ToString() == postId);
+            datacontext.Post.DeleteOnSubmit(p);
+            datacontext.SubmitChanges();
+            return p.PostID;
+        }
+
         public void DeletePostType(string postTypeId)
         {
             var datacontext = new DataClassesDataContext();
@@ -30,8 +51,14 @@ namespace WCFRest
             datacontext.SubmitChanges();
         }
 
-        public void DoWork()
+        public Post GetPost(string postId)
         {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Post> GetPosts()
+        {
+            throw new NotImplementedException();
         }
 
         public PostType GetPostType(string postTypeId)
@@ -46,6 +73,17 @@ namespace WCFRest
             var datacontext = new DataClassesDataContext();
             return datacontext.PostType.AsEnumerable();
 
+        }
+
+        public int UpdatePost(string postId, string postHeader, string postText, string postTypeId)
+        {
+            var datacontext = new DataClassesDataContext();
+            var p = datacontext.Post.FirstOrDefault(x => x.PostID.ToString() == postId);
+            p.PostHeader = postHeader;
+            p.PostText = postText;
+            p.PostTypeID = Int16.Parse(postTypeId);
+            datacontext.SubmitChanges();
+            return p.PostID;
         }
 
         public void UpdatePostType(string postTypeId, string postTypeName)

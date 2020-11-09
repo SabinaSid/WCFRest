@@ -12,9 +12,6 @@ namespace WCFRest
     [ServiceContract]
     public interface IBlogService
     {
-        [OperationContract]
-        void DoWork();
-
         /// <summary>
         /// Метод чтения данных для таблицы PostType
         /// </summary>
@@ -80,10 +77,11 @@ namespace WCFRest
         /// </summary>
         /// <param name="postHeader">заголовок поста</param>
         /// <param name="postText">текст поста</param>
+        /// <param name="postTypeId">идентификатор типа поста</param>
         /// <returns></returns>
         [OperationContract]
-        [WebInvoke(Method ="POST",UriTemplate ="/PostAdd/{postHeader}/{postText}",RequestFormat =WebMessageFormat.Json)]
-        int AddPost(string postHeader, string postText);
+        [WebInvoke(Method ="POST",UriTemplate ="/PostAdd/{postHeader}/{postText}/{postTypeId}",RequestFormat =WebMessageFormat.Json)]
+        int AddPost(string postHeader, string postText,string postTypeId);
 
         /// <summary>
         /// Метод редактирования записи в таблице Post
@@ -91,10 +89,11 @@ namespace WCFRest
         /// <param name="postId">идентификатор записи</param>
         /// <param name="postHeader">заголовок поста</param>
         /// <param name="postText">текст поста</param>
+        /// <param name="postTypeId">идентификатор типа поста</param>
         /// <returns></returns>
         [OperationContract]
-        [WebInvoke(Method ="PUT",UriTemplate ="/PostUpdate/{postId}/{postHeader}/{postText}")]
-        int UpdatePost(string postId, string postHeader, string postText);
+        [WebInvoke(Method ="PUT",UriTemplate = "/PostUpdate/{postId}/{postHeader}/{postText}/{postTypeId}")]
+        int UpdatePost(string postId, string postHeader, string postText, string postTypeId);
 
         /// <summary>
         /// Метод удаления записи в таблице Post
