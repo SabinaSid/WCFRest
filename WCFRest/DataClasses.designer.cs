@@ -20,9 +20,9 @@ namespace WCFRest
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlogDB")]
+    using System.Runtime.Serialization;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlogDB")]
 	public partial class DataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -86,17 +86,18 @@ namespace WCFRest
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Post")]
+	
 	public partial class Post : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
+
 		private int _PostID;
-		
+
 		private string _PostHeader;
-		
+
 		private string _PostText;
-		
+
 		private short _PostTypeID;
 		
 		private EntityRef<PostType> _PostType;
@@ -265,9 +266,9 @@ namespace WCFRest
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
+
 		private short _PostTypeID;
-		
+
 		private string _PostTypeName;
 		
 		private EntitySet<Post> _Post;

@@ -18,7 +18,7 @@ namespace WCFRest
         /// <returns>таблица PostType</returns>
         [OperationContract]
         [WebGet(UriTemplate = "/PostTypes", ResponseFormat = WebMessageFormat.Json)]
-        IEnumerable<PostType> GetPostTypes();
+        IEnumerable<PostTypeDTO> GetPostTypes();
 
         /// <summary>
         /// Метод чтения записи в талблице PostType
@@ -27,7 +27,7 @@ namespace WCFRest
         /// <returns>запись из таблицы PostType</returns>
         [OperationContract]
         [WebGet(UriTemplate = "/PostTypes/{postTypeId}", ResponseFormat = WebMessageFormat.Json)]
-        PostType GetPostType(string postTypeId);
+        PostTypeDTO GetPostType(string postTypeId);
 
         /// <summary>
         /// Метод добавления записи в талблице PostType
@@ -61,7 +61,7 @@ namespace WCFRest
         /// <returns>записи таблицы Post</returns>
         [OperationContract]
         [WebInvoke(Method ="GET",UriTemplate ="/Posts",RequestFormat =WebMessageFormat.Json)]
-        IEnumerable<Post> GetPosts();
+        IEnumerable<PostDTO> GetPosts();
 
         /// <summary>
         /// Метод получения записи таблицы Post
@@ -70,7 +70,7 @@ namespace WCFRest
         /// <returns>запись таблицы Post</returns>
         [OperationContract]
         [WebInvoke(Method ="GET",UriTemplate ="/Posts/{postId}",RequestFormat =WebMessageFormat.Json)]
-        Post GetPost(string postId);
+        PostDTO GetPost(string postId);
 
         /// <summary>
         /// Метод добавления записи в таблицу Post
@@ -92,7 +92,7 @@ namespace WCFRest
         /// <param name="postTypeId">идентификатор типа поста</param>
         /// <returns></returns>
         [OperationContract]
-        [WebInvoke(Method ="PUT",UriTemplate = "/PostUpdate/{postId}/{postHeader}/{postText}/{postTypeId}")]
+        [WebInvoke(Method ="PUT",UriTemplate = "/PostUpdate/{postId}/{postHeader}/{postText}/{postTypeId}", ResponseFormat = WebMessageFormat.Json)]
         int UpdatePost(string postId, string postHeader, string postText, string postTypeId);
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace WCFRest
         /// <param name="postId">идентификатор записи</param>
         /// <returns></returns>
         [OperationContract]
-        [WebInvoke(Method ="DELETE",UriTemplate ="/PostDelete/{postId}")]
+        [WebInvoke(Method ="DELETE",UriTemplate ="/PostDelete/{postId}", ResponseFormat = WebMessageFormat.Json)]
         int DeletePost(string postId);
 
 

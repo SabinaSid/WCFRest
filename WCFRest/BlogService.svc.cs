@@ -51,28 +51,49 @@ namespace WCFRest
             datacontext.SubmitChanges();
         }
 
-        public Post GetPost(string postId)
+        public PostDTO GetPost(string postId)
         {
-            throw new NotImplementedException();
+            using (var datacontext = new DataClassesDataContext())
+            {
+                var p = datacontext.Post.FirstOrDefault(x => x.PostID.ToString() == postId);
+                return new PostDTO() { PostID = p.PostID, PostHeader=p.PostHeader,PostText=p.PostText,PostTypeID=p.PostTypeID };
+            }
+ 
         }
 
-        public IEnumerable<Post> GetPosts()
+        public IEnumerable<PostDTO> GetPosts()
         {
-            throw new NotImplementedException();
+            using (var datacontext = new DataClassesDataContext())
+            {
+                var lst = new List<PostDTO>();
+                foreach (var p in datacontext.Post)
+                {
+                    lst.Add(new PostDTO() { PostID = p.PostID, PostHeader = p.PostHeader, PostText = p.PostText, PostTypeID = p.PostTypeID });
+                }
+                return lst;
+            }
+            
         }
 
-        public PostType GetPostType(string postTypeId)
+        public PostTypeDTO GetPostType(string postTypeId)
         {
-            var datacontext = new DataClassesDataContext();
-            return datacontext.PostType.FirstOrDefault(x => x.PostTypeID.ToString() == postTypeId);
+            using (var datacontext = new DataClassesDataContext())
+            {
+                var pt = datacontext.PostType.FirstOrDefault(x => x.PostTypeID.ToString() == postTypeId);
+                return new PostTypeDTO() { PostTypeID = pt.PostTypeID, PostTypeName = pt.PostTypeName };
+            }
 
         }
 
-        public IEnumerable<PostType> GetPostTypes()
+        public IEnumerable<PostTypeDTO> GetPostTypes()
         {
-            var datacontext = new DataClassesDataContext();
-            return datacontext.PostType.AsEnumerable();
-
+            using (var datacontext = new DataClassesDataContext())
+            {
+                var lst = new List<PostTypeDTO>();
+                foreach (var pt in datacontext.PostType)
+                    lst.Add(new PostTypeDTO() { PostTypeID = pt.PostTypeID, PostTypeName = pt.PostTypeName });
+                return lst;
+            }
         }
 
         public int UpdatePost(string postId, string postHeader, string postText, string postTypeId)
